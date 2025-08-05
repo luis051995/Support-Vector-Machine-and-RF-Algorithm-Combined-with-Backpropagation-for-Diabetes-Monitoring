@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "detector_acetona",
+			"path": "../../../PlatformIO/Projects/detector_acetona"
+		}
+	],
+	"settings": {}
+}
