@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite it as below:"
+authors:
+  - family-names: Robles Barcenas
+    given-names: Jose Luis
+title: "Sistema Inteligente de Monitoreo No Invasivo de Acetona en el Aliento con ESP32, Sensor MQ-138 y Algoritmos de Aprendi-zaje Automático"
+version: "1.0"
+date-released: "2025-08-05"
+license: "GPL-3.0"
