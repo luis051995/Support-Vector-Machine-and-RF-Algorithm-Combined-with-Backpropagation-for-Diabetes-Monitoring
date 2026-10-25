@@ -1,0 +1,8 @@
+{
+	"appId": "mx.academico.polisalud",
+	"appName": "PoliSalud",
+	"webDir": "www",
+	"server": {
+		"androidScheme": "https"
+	}
+}

@@ -26,3 +26,7 @@ Actualización de registro: se verificó alta con cuenta y expediente cifrado, r
 - No se conectó un ESP32 físico, no se probó radio Wi-Fi/BLE en teléfonos ni se verificó el montaje eléctrico, calentamiento, calibración, precisión o selectividad del MQ-138.
 - No se cargó el firmware a una placa del usuario ni se verificó visualmente la nueva pantalla de pruebas en un navegador. Se comprobó sintaxis JavaScript y endpoints automatizados.
 - Wi-Fi necesita provisionar URL/token por monitor serial para cada sesión. BLE requiere emparejamiento físico y cliente compatible; la app móvil sigue requiriendo firma/instalación. Ambos necesitan Django accesible para persistir.
+
+## Preparación Neon
+
+npm run build pasó. npm test pasó 26 pruebas aisladas de SQLite. El servidor respondió HTTP 200 en raíz y health. La integración real con PostgreSQL no se completó: resolución DNS fallida y autenticación de neon deploy expirada. Consulta CONECTAR_NEON.md.

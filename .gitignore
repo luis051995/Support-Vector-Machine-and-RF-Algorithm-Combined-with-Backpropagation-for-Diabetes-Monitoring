@@ -16,3 +16,9 @@ mobile/android/app/build/
 *.keystore
 firmware/**/include/polisalud_config.h
 firmware/**/.pio/
+.neon
+
+# Contexto local y credenciales Neon
+.neon
+.neon.*
+.private/

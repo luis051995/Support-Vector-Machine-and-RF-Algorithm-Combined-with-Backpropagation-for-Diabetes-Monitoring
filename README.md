@@ -75,3 +75,7 @@ Ver docs/ACTUALIZAR.md antes de reemplazar una instalación existente.
 ## Prueba en tiempo real con ESP32 + MQ-138
 
 Cada paciente puede iniciar una prueba propia desde **Prueba ESP32**. El ESP32 transmite por Wi-Fi a Django o por BLE al cliente que retransmite a Django. Señal cruda/voltaje en vivo, historial cifrado de pruebas, tokens temporales y límites de muestras. Solo el administrador registra calibraciones de acetona; sin ellas se conserva señal cruda y no se ejecuta IA. Firmware para ESP32 clásico y guía de cableado/provisión en docs/ESP32_MQ138.md. No se probó físicamente la placa ni el sensor del usuario. Los APK/IPA siguen requiriendo compilación y firma.
+
+## Neon CLI e integración
+
+Esta edición incorpora neon.ts, npm run build y deploy/setup_neon.py. Sigue docs/CONECTAR_NEON.md para usar la conexión de tu proyecto existente. Django utiliza APP_DATABASE_URL para el rol limitado y conserva DATABASE_URL/DATABASE_URL_UNPOOLED como variables administradas por Neon. La verificación remota no pudo completarse por autenticación CLI y resolución DNS en este entorno; no se afirma un despliegue productivo.
