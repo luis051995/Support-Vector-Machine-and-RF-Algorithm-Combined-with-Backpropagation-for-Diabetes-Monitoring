@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: polisalud-django
+    runtime: python
+    plan: free
+    buildCommand: bash deploy/build.sh
+    startCommand: python deploy/start.py
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.12
+      - key: APP_ENV
+        value: production
+      - key: DJANGO_SECRET_KEY
+        sync: false
+      - key: TRUST_RENDER_PROXY
+        value: '1'
+      - key: DATA_ENCRYPTION_KEYS
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: MIGRATION_DATABASE_URL
+        sync: false
+      - key: BOOTSTRAP_ADMIN_USERNAME
+        sync: false
+      - key: BOOTSTRAP_ADMIN_PASSWORD
+        sync: false
