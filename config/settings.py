@@ -8,6 +8,7 @@ BASE_DIR=Path(__file__).resolve().parents[1]
 try:
     from dotenv import load_dotenv
     load_dotenv(BASE_DIR/'.env',override=False)
+    load_dotenv(BASE_DIR/'.env.local',override=False)
 except ImportError:pass
 MODE=os.getenv('APP_ENV','development')
 PRODUCTION=MODE=='production'
@@ -36,13 +37,13 @@ AXES_HTTP_RESPONSE_CODE=429
 AXES_IPWARE_PROXY_COUNT=0
 AXES_CLIENT_IP_CALLABLE='config.security.client_ip'
 AXES_SENSITIVE_PARAMETERS=['username','password']
-DATABASE_URL=os.getenv('DATABASE_URL')
-if os.getenv('USE_MIGRATION_DATABASE')=='1':DATABASE_URL=os.getenv('MIGRATION_DATABASE_URL') or DATABASE_URL
+DATABASE_URL=os.getenv('APP_DATABASE_URL') or os.getenv('DATABASE_URL')
+if os.getenv('USE_MIGRATION_DATABASE')=='1':DATABASE_URL=os.getenv('MIGRATION_DATABASE_URL') or os.getenv('DATABASE_URL_UNPOOLED') or DATABASE_URL
 if PRODUCTION and not DATABASE_URL:raise ImproperlyConfigured('Producción requiere PostgreSQL mediante DATABASE_URL; SQLite solo para desarrollo.')
 if DATABASE_URL:
     DATABASES={'default':dj_database_url.parse(DATABASE_URL,conn_max_age=0,conn_health_checks=True)}
-    if PRODUCTION:
-        if DATABASES['default']['ENGINE']!='django.db.backends.postgresql':raise ImproperlyConfigured('Solo PostgreSQL en producción.')
+    if PRODUCTION and DATABASES['default']['ENGINE']!='django.db.backends.postgresql':raise ImproperlyConfigured('Solo PostgreSQL en producción.')
+    if DATABASES['default']['ENGINE']=='django.db.backends.postgresql' and (PRODUCTION or str(DATABASES['default'].get('HOST','')).endswith('.neon.tech')):
         # La CA del sistema debe validar el certificado y el nombre del servidor.
         DATABASES['default'].setdefault('OPTIONS',{}).update({'sslmode':'verify-full','sslrootcert':'system','connect_timeout':10})
         DATABASES['default']['DISABLE_SERVER_SIDE_CURSORS']=True

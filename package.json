@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "@neon/config": "^1.9.4",
+    "@neon/env": "^1.6.5"
+  },
+  "name": "polisalud-django",
+  "version": "2.1.0",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "python run_local.py",
+    "test": "python manage.py test tests --settings=config.testing",
+    "neon:init": "npx --yes neon@latest init -y --org-id org-red-dew-78568003 --project-id silent-term-17758572 --branch production --services postgres",
+    "neon:deploy": "npx --yes neon@latest deploy",
+    "neon:prepare": "python deploy/prepare_neon.py",
+    "neon:verify": "python manage.py verify_neon",
+    "neon:setup": "python deploy/setup_neon.py"
+  }
+}

@@ -5,11 +5,11 @@ import os
 import psycopg
 from psycopg import sql
 from psycopg.conninfo import conninfo_to_dict
-owner=os.environ.get('MIGRATION_DATABASE_URL');runtime=os.environ.get('DATABASE_URL')
+owner=os.environ.get('MIGRATION_DATABASE_URL');runtime=os.environ.get('APP_DATABASE_URL') or os.environ.get('DATABASE_URL')
 if not owner or not runtime:raise SystemExit('Configura ambas URLs de PostgreSQL.')
 a=conninfo_to_dict(owner);b=conninfo_to_dict(runtime)
 if b.get('user')!='polisalud_app' or a.get('user')==b.get('user'):raise SystemExit('DATABASE_URL debe usar polisalud_app y la cuenta migradora debe ser distinta.')
-if a.get('host')!=b.get('host') or a.get('dbname')!=b.get('dbname'):raise SystemExit('Ambas conexiones deben apuntar al mismo endpoint y base dedicada.')
+if (a.get('host') or '').replace('-pooler','')!=(b.get('host') or '').replace('-pooler','') or a.get('dbname')!=b.get('dbname'):raise SystemExit('Ambas conexiones deben apuntar al mismo endpoint y base dedicada.')
 if not b.get('password'):raise SystemExit('La cuenta runtime requiere contraseña propia.')
 with psycopg.connect(owner,sslmode='verify-full',sslrootcert='system',connect_timeout=10) as c:
     role=c.execute('SELECT rolsuper,rolcreatedb,rolcreaterole,rolbypassrls FROM pg_roles WHERE rolname=%s',('polisalud_app',)).fetchone()
@@ -24,4 +24,5 @@ with psycopg.connect(owner,sslmode='verify-full',sslrootcert='system',connect_ti
     c.execute('GRANT USAGE,SELECT ON ALL SEQUENCES IN SCHEMA public TO polisalud_app')
     c.execute('REVOKE UPDATE,DELETE,TRUNCATE ON records_auditevent,records_chartentry,records_sensorsample,records_sensorcalibration FROM polisalud_app')
     c.execute('REVOKE ALL ON django_migrations FROM polisalud_app')
+    c.execute('GRANT SELECT ON django_migrations TO polisalud_app')
 print('Permisos runtime aplicados; bitácora y entradas clínicas sin UPDATE/DELETE.')
