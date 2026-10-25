@@ -1,0 +1,5 @@
+from django.contrib import admin
+from django.urls import path
+from clinical.adapters.http import views as v
+from clinical.adapters.http import live
+urlpatterns=[path("api/patients/<int:pid>/sensor-sessions",live.sessions),path("api/sensor-sessions/<uuid:sid>",live.status),path("api/sensor-sessions/<uuid:sid>/samples",live.ble_sample),path("api/sensor-sessions/<uuid:sid>/finish",live.finish),path("api/device/<uuid:sid>/samples",live.device_ingest),path("api/calibrations",live.calibrations),path('',v.home),path('admin/',admin.site.urls),path('api/csrf',v.csrf),path('api/health',v.health),path('api/register',v.register),path('api/login',v.login),path('api/me',v.me),path('api/logout',v.logout),path('api/password',v.password),path('api/patients',v.patients),path('api/patients/<int:pid>',v.patient),path('api/patients/<int:pid>/visits',v.visits),path('api/patients/<int:pid>/readings',v.readings),path('api/patients/<int:pid>/export',v.export),path('api/model',v.model),path('api/users',v.users),path('api/audit',v.audit)]

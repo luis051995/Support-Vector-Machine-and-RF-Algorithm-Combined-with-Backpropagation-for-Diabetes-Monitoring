@@ -1,0 +1,79 @@
+{
+  "version": "research-v2-4c4bdbdbda",
+  "data_audit": {
+    "original_rows": 286,
+    "height_rows_converted": 3,
+    "rejected_rows": 4,
+    "duplicates_removed": 6,
+    "usable_rows": 276,
+    "conflicting_feature_groups": 0,
+    "class_counts": {
+      "0": 202,
+      "1": 74
+    },
+    "grouping": "surrogate_demographics",
+    "limitation": "CSV sin identidad ni procedencia clínica verificadas. Grupos demográficos aproximados; se requiere validación externa por paciente."
+  },
+  "train_rows": 220,
+  "test_rows": 56,
+  "split": "StratifiedGroupKFold; holdout no usado en ajuste; grupos disjuntos",
+  "best_svm_params": {
+    "svc__C": 10,
+    "svc__gamma": "scale"
+  },
+  "hybrid": {
+    "accuracy": 0.9285714285714286,
+    "roc_auc": 0.9512195121951219,
+    "f1": 0.8461538461538461,
+    "sensitivity": 0.7333333333333333,
+    "specificity": 1.0,
+    "brier": 0.0641871708604153,
+    "confusion_matrix": [
+      [
+        41,
+        0
+      ],
+      [
+        4,
+        11
+      ]
+    ]
+  },
+  "svm_reference": {
+    "accuracy": 0.8571428571428571,
+    "roc_auc": 0.9300813008130081,
+    "f1": 0.7142857142857143,
+    "sensitivity": 0.6666666666666666,
+    "specificity": 0.926829268292683,
+    "brier": 0.0826826414866513,
+    "confusion_matrix": [
+      [
+        38,
+        3
+      ],
+      [
+        5,
+        10
+      ]
+    ]
+  },
+  "rf_reference": {
+    "accuracy": 0.9107142857142857,
+    "roc_auc": 0.9300813008130082,
+    "f1": 0.8148148148148148,
+    "sensitivity": 0.7333333333333333,
+    "specificity": 0.975609756097561,
+    "brier": 0.06772738736535872,
+    "confusion_matrix": [
+      [
+        40,
+        1
+      ],
+      [
+        4,
+        11
+      ]
+    ]
+  },
+  "note": "Comparación interna sobre el mismo holdout. No demuestra superioridad clínica ni reproduce la red TensorFlow original. Probabilidades sin calibración clínica."
+}
